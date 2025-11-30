@@ -1,0 +1,107 @@
+import React, { useEffect, useState } from "react";
+import { Toast } from "../components/Toast";
+
+export default function SampleCollection() {
+    const [is_recording, set_is_recording] = useState(false);
+    const [machine_id, set_machine_id] = useState("");
+    const [number_of_splits, set_number_of_splits] = useState(4);
+    const [split_duration, set_split_duration] = useState(3);
+    const [popup_message, set_popup_message] = useState(
+        "Recording in progress..."
+    );
+    const [toast_message, set_toast_message] = useState<string | null>(null);
+
+    const handlemachine_idChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const id = e.target.value;
+        set_machine_id(id);
+    };
+
+    function showToast(msg: string) {
+        set_toast_message(msg);
+        setTimeout(() => set_toast_message(null), 3000);
+    }
+
+    // Call server /record endpoint
+    const startServerRecording = async (durationSeconds: number) => {
+        try {
+            const response = await fetch("http://localhost:5050/record", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ machine_id, is_recording }),
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || "Server error");
+            }
+
+            console.log("Recording response:", data);
+            return data;
+        } catch (error) {
+            console.error("Error calling /record endpoint:", error);
+            throw error;
+        }
+    };
+
+    // Handle record button click
+    async function onRecordClick() {
+        set_is_recording(true);
+        try {
+            for (let i = 0; i < number_of_splits; i++) {
+                const result = await startServerRecording(split_duration);
+                alert(
+                    `Recording split ${
+                        i + 1
+                    }/${number_of_splits} completed!\n` +
+                        `Recordings: ${result.recordings
+                            .map((r: any) => r.micName)
+                            .join(", ")}\n` +
+                        (result.errors.length > 0
+                            ? `Errors: ${result.errors
+                                  .map((e: any) => `${e.micName}: ${e.error}`)
+                                  .join(", ")}`
+                            : "")
+                );
+            }
+            alert("All recordings completed successfully!");
+        } catch (error) {
+            console.error("Recording failed:", error);
+            showToast("Recording failed. Please try again.");
+        } finally {
+            set_is_recording(false);
+        }
+    }
+
+    return (
+        <div>
+            <Toast message={toast_message} />
+            <div>
+                <input
+                    id="machine_id"
+                    className="machine-id"
+                    type="text"
+                    value={machine_id}
+                    onChange={handlemachine_idChange}
+                    placeholder="Enter Machine ID"
+                />
+            </div>
+
+            <button
+                className="record-button"
+                onClick={onRecordClick}
+                disabled={!machine_id.trim() || is_recording}
+            >
+                Start Recording
+            </button>
+
+            {/* Recording Popup */}
+            {is_recording && (
+                <div className="recording-popup">
+                    <p>{popup_message}</p>
+                </div>
+            )}
+        </div>
+    );
+}
