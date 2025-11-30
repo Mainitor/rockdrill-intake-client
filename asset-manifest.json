@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/Mainitor/rockdrill-intake-client/static/css/main.8f52d9c3.css",
-    "main.js": "/Mainitor/rockdrill-intake-client/static/js/main.e8aa1c08.js",
-    "static/js/453.d7446e4a.chunk.js": "/Mainitor/rockdrill-intake-client/static/js/453.d7446e4a.chunk.js",
-    "index.html": "/Mainitor/rockdrill-intake-client/index.html",
-    "main.8f52d9c3.css.map": "/Mainitor/rockdrill-intake-client/static/css/main.8f52d9c3.css.map",
-    "main.e8aa1c08.js.map": "/Mainitor/rockdrill-intake-client/static/js/main.e8aa1c08.js.map",
-    "453.d7446e4a.chunk.js.map": "/Mainitor/rockdrill-intake-client/static/js/453.d7446e4a.chunk.js.map"
+    "main.css": "/rockdrill-intake-client/static/css/main.8f52d9c3.css",
+    "main.js": "/rockdrill-intake-client/static/js/main.1e1b47c9.js",
+    "static/js/453.d7446e4a.chunk.js": "/rockdrill-intake-client/static/js/453.d7446e4a.chunk.js",
+    "index.html": "/rockdrill-intake-client/index.html",
+    "main.8f52d9c3.css.map": "/rockdrill-intake-client/static/css/main.8f52d9c3.css.map",
+    "main.1e1b47c9.js.map": "/rockdrill-intake-client/static/js/main.1e1b47c9.js.map",
+    "453.d7446e4a.chunk.js.map": "/rockdrill-intake-client/static/js/453.d7446e4a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8f52d9c3.css",
-    "static/js/main.e8aa1c08.js"
+    "static/js/main.1e1b47c9.js"
   ]
 }
