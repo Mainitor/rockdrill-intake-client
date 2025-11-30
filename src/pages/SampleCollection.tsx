@@ -93,6 +93,7 @@ export default function SampleCollection() {
                     value={machine_id}
                     onChange={handlemachine_idChange}
                     placeholder="Enter Machine ID"
+                    autoFocus
                 />
             </div>
 
