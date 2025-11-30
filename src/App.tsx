@@ -4,7 +4,7 @@ import SampleCollection from './pages/SampleCollection';
 
 const MAJOR_VERSION = 1;
 const MINOR_VERSION = 0;
-const PATCH_VERSION = 3;
+const PATCH_VERSION = 4;
 
 export const APP_VERSION = `${MAJOR_VERSION}.${MINOR_VERSION} - ${PATCH_VERSION}`;
 

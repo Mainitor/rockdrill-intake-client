@@ -1,6 +1,11 @@
-export function Toast({ message }: { message: string | null }) {
-    if (!message) return null;
+type ToastProps = {
+    message: string | null;
+    color?: string | null; // <-- add color prop
+};
 
+export function Toast({ message, color = "#4f4f4fff" }: ToastProps) {
+    if (!message) return null;
+    if(!color) color = "#4f4f4fff";
     return (
         <div
             style={{
@@ -8,7 +13,7 @@ export function Toast({ message }: { message: string | null }) {
                 top: "20px",
                 left: "50%",
                 transform: "translateX(-50%)",
-                background: "#563232ff",
+                background: color,
                 color: "#fff",
                 padding: "12px 20px",
                 borderRadius: "8px",
