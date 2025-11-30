@@ -28,7 +28,7 @@ export default function SampleCollection() {
             const response = await fetch("http://localhost:5050/record", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ machine_id, is_recording }),
+                body: JSON.stringify({ machine_id, is_recording: true }),
             });
 
             const data = await response.json();
