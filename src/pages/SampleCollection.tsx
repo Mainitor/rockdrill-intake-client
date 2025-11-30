@@ -51,21 +51,11 @@ export default function SampleCollection() {
         try {
             for (let i = 0; i < number_of_splits; i++) {
                 const result = await startServerRecording(split_duration);
-                alert(
-                    `Recording split ${
-                        i + 1
-                    }/${number_of_splits} completed!\n` +
-                        `Recordings: ${result.recordings
-                            .map((r: any) => r.micName)
-                            .join(", ")}\n` +
-                        (result.errors.length > 0
-                            ? `Errors: ${result.errors
-                                  .map((e: any) => `${e.micName}: ${e.error}`)
-                                  .join(", ")}`
-                            : "")
+                // Instead of mapping over recordings/errors, just show status
+                showToast(
+                    `Split ${i + 1}/${number_of_splits}: ${result.status}`
                 );
             }
-            alert("All recordings completed successfully!");
         } catch (error) {
             console.error("Recording failed:", error);
             showToast("Recording failed. Please try again.");
@@ -73,6 +63,22 @@ export default function SampleCollection() {
             set_is_recording(false);
         }
     }
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Only start recording on Enter if a machine ID is entered and not already recording
+            if (e.key === "Enter" && machine_id.trim() && !is_recording) {
+                onRecordClick();
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+
+        // Cleanup when component unmounts
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [machine_id, is_recording]); // Re-run effect if machine_id or is_recording changes
 
     return (
         <div>
