@@ -50,7 +50,7 @@ export default function SampleCollection() {
         set_is_recording(true);
         try {
             const result = await startServerRecording();
-            showToast(`Recording started: ${result.status}`, "#4f4f4fff");
+            showToast(`Recording Completed`, "#4f4f4fff");
             // for (let i = 0; i < number_of_splits; i++) {
             //     const result = await startServerRecording(split_duration);
             //     // Instead of mapping over recordings/errors, just show status
